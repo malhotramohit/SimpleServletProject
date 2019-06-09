@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.gs.ilp.framework.CustomException;
-import com.gs.ilp.framework.ServiceFactory;
-import com.gs.ilp.model.ProfileModel;
 import com.gs.ilp.service.ProfileService;
 
 /**
@@ -42,7 +40,7 @@ public class HomeServlet extends HttpServlet {
 		String password = request.getParameter("pswd");
 		PrintWriter printWriter = response.getWriter();
 		printWriter.println("<h1>Hello from Get</h1>");
-		ProfileService profileService = (ProfileService) ServiceFactory.getInstance(ProfileService.class);
+		ProfileService profileService = new ProfileService();
 		// boolean isLoginAllowed = profileService.doAuthentication(username, password);
 		printWriter.println("Username from request is " + username + " password is " + password);
 		HttpSession httpSession = request.getSession();
@@ -84,16 +82,16 @@ public class HomeServlet extends HttpServlet {
 
 		String uname = request.getParameter("uname");
 		String pswd = request.getParameter("pswd");
-		ProfileService profileService = (ProfileService) ServiceFactory.getInstance(ProfileService.class);
-		try {
-			profileService.save(uname, pswd);
-		} catch (CustomException e) {
-			e.printStackTrace();
-			System.out.println(e.getMessage());
-			request.setAttribute("errormsg", e.getMessage());
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("error.jsp");
-			requestDispatcher.forward(request,  response);
-		}
+		ProfileService profileService = new ProfileService();
+//		try {
+//			profileService.saveProfile();
+//		} catch (CustomException e) {
+//			e.printStackTrace();
+//			System.out.println(e.getMessage());
+//			request.setAttribute("errormsg", e.getMessage());
+//			RequestDispatcher requestDispatcher = request.getRequestDispatcher("error.jsp");
+//			requestDispatcher.forward(request, response);
+//		}
 
 	}
 

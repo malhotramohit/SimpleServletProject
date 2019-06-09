@@ -8,19 +8,14 @@
 </head>
 <body>
 	<form method="post" action="login">
-		Username : <input name="uname" type="text"> <br> Password
-		: <input name="pswd" type="text"> <br> <br> <input
-			type="submit">
+		Username : <input name="uname" type="text"> <br>
+		Password: <input name="pswd" type="text"> <br> <br>
+		<input type="submit">
 	</form>
 	<strong> <%
- 	String errorMsg = null;
- 	errorMsg = (String) request.getAttribute("errorString");
- 	if (null != errorMsg) {
- %> <%=errorMsg%><%
- 	}
- %>
-
-
+ 	String msg = (String) request.getAttribute("wrongPassMsg");
+ 	String SuccessMsg = (String) request.getAttribute("SuccessMsg");
+ %> <%=msg%> <%=SuccessMsg%>
 	</strong>
 </body>
 </html>

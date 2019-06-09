@@ -10,15 +10,23 @@
 </head>
 <body>
 
-	<%
-		HttpSession httpSession = request.getSession();
-		String uname = (String) httpSession.getAttribute("unameAfterLogin");
-	%>
-	
-	<h1>Welcome to home</h1>
-	<h2>Hello <%= uname %></h2>
+
+	<h1>Products</h1>
 	<br>
-	<a href="signup">Create profile</a>
+	<table border="1" cellpadding="5" cellspacing="1">
+		<tr>
+			<th>Code</th>
+			<th>Name</th>
+			<th>Price</th>
+		</tr>
+		<c:forEach items="${productList}" var="product">
+			<tr>
+				<td>${product.code}</td>
+				<td>${product.name}</td>
+				<td>${product.price}</td>
+			</tr>
+		</c:forEach>
+	</table>
 </body>
 </html>
 

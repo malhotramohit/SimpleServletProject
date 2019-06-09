@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.gs.ilp.framework.ServiceFactory;
 import com.gs.ilp.service.ProfileService;
 
 /**
@@ -48,18 +47,19 @@ public class LoginServlet extends HttpServlet {
 		String username = request.getParameter("uname");
 		String password = request.getParameter("pswd");
 
-		ProfileService profileService = (ProfileService) ServiceFactory.getInstance(ProfileService.class);
-		boolean isLoginAllowed = profileService.doAuthentication(username, password);
+		ProfileService profileService = new ProfileService();
+		boolean isLoginAllowed = true;
+				//profileService.doAuthentication(username, password);
 
 		if (isLoginAllowed) {
 			HttpSession httpSession = request.getSession();
-			httpSession.setAttribute("username", username);
+			httpSession.setAttribute("unameAfterLogin", username);
 			request.setAttribute("password", password);
 			response.sendRedirect("home.jsp");
 		} else {
-			request.setAttribute("errorString", "Password for " + username + " is not correct");
-
-			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+			request.setAttribute("wrongPassMsg", "Incorrect Password  "+password +" or "+"Username "+username);
+			//response.sendRedirect("index.jsp");;
+			RequestDispatcher dispatcher= request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
 
 		}
